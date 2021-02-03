@@ -17,8 +17,8 @@ def p2_has_cycle(sets):
             5  0  0  1  0  0  0
         The size of the matrix is (6,6)
     '''
-    # return numpy_cycle_detection(sets)
     return scipy_cycle_detection(sets)
+    return numpy_cycle_detection(sets)
 
 def scipy_cycle_detection(sets):
 
