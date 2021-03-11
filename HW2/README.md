@@ -1,50 +1,60 @@
-# Homework 1: Cycle Detection
+# Homework 1: Hill Cipher
 
 ## Purpose:
 
-Detect if a directed graph contains cycle by linear algebra addition and multiplication.
+Decode the cipher text and find the secret key by linear algebra invertibility and multiplication.
 
 ## Summary:
+Hill Cipher is a simple encryption method by using linear multiplication. It takes a string as an input and output a string of cipher with a public key.
 
+![intro](img/LA_HW2_character_map.png)
+
+![encode](img/LA_HW2_encode.png)
+**To Encrypt the plain text:**
+1. Replace the space( ) with underscore(_), and map each character with character map to number
+2. Replicate the last character to multiple of 3
+3. Reshape the numbers to 2-D array with 3 rows
+4. Multiply the 2-D array with public key to get a 2-D array
+5. Reshape 2-D array to 1-D array and use character map transform to cipher text
+
+![decode](img/LA_HW2_decode.png)
+**To Decript the cipher text:**
+1. Map each character with character map to number
+2. Reshape the numbers to 2-D array with 3 rows
+3. Multiply the 2-D array with private key to get a 2-D array
+4. Reshape 2-D array to 1-D array and use character map transform to plain text
+5. Replace the underscore(_) with space(_), and eliminate duplicated character at the end
 ### Problem 1
-If directed graph represents by a sparse matrix, and **each edge is represented by filling the starting point with -1 and ending point with 1, others with 0**. How to detect if the directed graph contains a cycle?
-
-![P1](img/LA_HW1_P1.png)
+**What is the plain text with following info?**<br>
+cipher: C!QER,YNR <br>
+public key: 25 8 25 9 9 16 28 21 18 <br>
 
 ### Explanation
-Because each row is an edge, adding one row to other row means connecting the one edge to the other. If we get ALL 0 row, then the graph has a cycle.
+  1. Cipher text is calculated by multiplying the public key with plain text (Fig. 1), and plain text is calculated by multiplying the private key with cipher text (Fig. 2)
+  2. Now we need private key to get plain text. Multiply modular inverse of public key on leftside in Fig. 1 equation would equal to Fig. 2 equation, therefore private key is the modular inverse of public key.
+  3. Multiply secret key with cipher text, then the plain text would be founded
 
-  1. Start from connecting the first edge to all edge connected to first edge
-  2. Append the result to the matrix. 
-  3. Remove first row because it's connected to other edge.
-  4. So on and so forth until there is only one edge left or ALL 0 row is detected
-
-### Solution
-  1. Table 1 represents Graph 1. We take 1st edge and find all edges connected to it which means those rows have value -1 on column 2.
-  2. Table 2 is appended two additions from 1st row to 2nd row and 1st row to 4th row from Table 1. Graph 2 shows that first row is removed and merged to 2 -> 0 and 2 -> 3 edges.
-  3. Table 3 do the same operations, and Graph 3 has a new edge 1 -> 2, and first row is removed.
-  4. After addition from 1st edge and 3rd edge from Table 3, there would be a ALL 0 row. A cycle is detected.
+**Solution: IS_THAT_W**
 
 ### Problem 2
-If directed graph represents by a sparse matrix, and **an edge from node i to j is represented by filling 1 in (i, j), others with 0**. How to detect if the directed graph contains a cycle?
+**1. What is the public key with following info?** <br>
+cipher: C!QER,YNR <br>
+plain: IS_THAT_W <br>
 
-![P2](img/LA_HW1_P2.png)
+### Explanation
+  1. Now we have cipher and plain text. Multiply modular inverse of plain text on rightside in Fig. 1 equation, then we can get the public key.
+  2. Multiply cipher text with modular inverse of plain text, then the public key would be founded
+
+**Solution: 25 8 25 9 9 16 28 21 18**
+
+**2. What is the plain text with following info?** <br>
+*cipher: QYDPCSCFI* <br>
 
 ### Explanation
 
-![P2](img/LA_HW1_P2_exp.png)
-
-Because each entry on (i, j) is an edge from node i to node j, multiply entry on (j, k) would yield a result on (i, k), which means there is a edge from i to k. If we get ANY value greater than 0 on diagonal, then the graph has a cycle.
-
-  1. Multiply matrix on matrix to get the new matrix, the new matrix indicates steping every edge to the one connected to it.
-  2. Multiplying matrix to the new matrix again indicates step antoher one step further.
-  3. So on and so forth at most number of nodes times or any value on diagonal greater than 0.
-
-### Solution
-  1. Table 1 represents Graph 1. We multiply Table 1 by Table 1, and get the result of Table 2. It means connecting edge to the next edge as indicated in Graph 2.
-  2. Then Graph 2 multiplies Graph 1, and get the result of Table 3. Multiply Graph 1 instead of Graph 2 is that Graph 1 shows the original edge of node while Graph 2 shows shortcuts of edges.
-  3. There are value 1s on diagonal. A cycle is detected.
-
+It's same as 1st problem, use public key and cipher text to get plain text <br>
+**Solution: DUDE_,_YO**
 ## Reference
 
-- [Homework explaination powerpoint](https://docs.google.com/presentation/d/1v8bATvrXwYLJzYry3bo29kKJEjEj52uW7PO6ejOOr0g/edit#slide=id.p1)
+- [Homework explaination powerpoint](https://docs.google.com/presentation/d/1I0PlIn2Ak3rzvm3d8fFN1yuVb76frMa_YNxSuyzq_zI/edit#slide=id.ga3d83a1657_0_23)
+- [Homework explaination video](https://drive.google.com/file/d/18NQ2CP7iCcbGTztOnYMycm5Y0Z8IWa1j/view)
