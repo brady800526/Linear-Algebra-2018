@@ -1,4 +1,4 @@
-# Homework 1: Hill Cipher
+# Homework 2: Hill Cipher
 
 ## Purpose:
 
