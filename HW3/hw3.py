@@ -32,15 +32,14 @@ def InvCosineTrans(a, B):
     return np.matmul(B, a)
 
 def gen_basis(N):
-    n = len(N)
-    B = np.zeros((n, n))
-    for i in range(n):
-        for j in range(n):
-            if j is 0:
-                B[i, j] = 1 / np.sqrt(n)
+    B = np.zeros((N, N))
+    for n in range(N):
+        for k in range(N):
+            if k is 0:
+                B[n, k] = 1 / np.sqrt(N)
             else:
-                B[i, j] = (np.sqrt(2) / np.sqrt(n)) * \
-                np.cos(((i + 0.5) * j * np.pi / n))
+                B[n, k] = np.sqrt(2/N) * \
+                np.cos((n + 0.5) * k * np.pi / N)
     return B
 
 if __name__ == '__main__':
@@ -51,7 +50,7 @@ if __name__ == '__main__':
     # Get basis
     x = np.loadtxt(signal_path)
     plot_wave(x)
-    B = gen_basis(x)
+    B = gen_basis(len(x))
 
     # Get cosine transformation coefficient
     a = CosineTrans(x, B)
@@ -66,7 +65,7 @@ if __name__ == '__main__':
 
     # Get f3 spectrum
     f3 = np.zeros(len(x))
-    f3[idxs[2]] = 1
+    f3[idxs[2]] = a[idxs[2]]
     f3 = InvCosineTrans(f3, B)
 
     # Do not modify these 3 lines
