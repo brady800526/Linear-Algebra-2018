@@ -1,36 +1,26 @@
-# Homework 3: Cosine Transform
+# Homework 4: PageRank
 
 ## Purpose:
 
-Cosine Transform the signal to frequency domain by using linear algebra transformation.
+PageRank is an algorithm to measure the importance of a website by using Power method.
 
 ## Summary:
-![Fourier Transform](img/LA_HW3_basis.png)
-A periodic signal can be represented as a sum of sinusoids, Cosine Transformation can represent a signal in frequency domain similar to Fourier Transform. It takes a time series signal as an input and output a frequency series spectrum. It's useful for filtering unwanted frequency like noise. 
 
-![Cosine Transform](img/LA_HW3_transform.png)
-**Cosine Transform the signal vecter set:**
-1. Calculate the basis of Cosine Transformation matrix by formula
-2. Inverse the Cosine Transformation matrix
-3. Multiply the inverse matrix on signal vector set
+![Power Method](img/LA_HW4_pagerank.png)
 
+To calculate the page rank, we start with multiplying a random input to a matrix. The matrix is composed with two element, a uniform matrix and original transition matrix. The uniform matrix represents a user may randomly browse the webpage across the internet, and original transition matrix represents a user browses the page depending on the outgoing link from p$_{j}$ to p $_{i}$ as the diagram illustrates.
 
-**Transform the frequency spectrum to time series signal:**
-1. Multiply Cosine Transformation matrix on cosine domain coefficient vector
-   
-### Problem 1
-**Given specified input, calculate the coefficient of cosine frequency domain**<br>
-Follow the steps of Cosine Transformation.
+Each page's outgoing link should divide by its total link number, for example, a node with 5 outgoing link would have 5 outgoing element with value 1/5.
 
-### Problem 2
-**Draw the filtered signal with highest 5 frequency** 
-![Filter](img/LA_HW3_filter.png)
-  1. Cosine Transform the input to frequency domain
-  2. Find the highest 5 by np.argsort(). 
-  3. Mask other signal by mask
-  4. Transform the frequency spectrum to time series signal by multiply them with Cosine Transformation matrix.
+### Problem
+
+**You will get a 2-dimensional list describing the topology of a network, output the correct ordering of each page.**<br>
+
+1. Draw the transition matrix and uniform matrix
+2. Set d equals to 0.85 and initialize the Page Rank with N elements [1/N 1/N ...]
+3. Iteratively calculated the Page Rank until converge, which means new Page Rank nearly equals to original Page Rank
 
 ## Reference
 
-- [Homework explaination powerpoint](https://docs.google.com/presentation/d/1iYvHbSVFE4SBK6a8ZgYvmnEmdQiGNUq2F13J63Rq7Gw/edit#slide=id.g6f6f22eb08_0_14)
-- [Homework explaination video](https://drive.google.com/file/d/1NFr3S2xim0G9Y9_-m8_Rl_t31jw4lHrb/view)
+- [Homework explaination powerpoint](https://docs.google.com/presentation/d/1vbYek4gRBN617nJ5J94RV8hs8sGClzst/edit?fbclid=IwAR08oQwJOyEFUZuXo-8YNAGh_5A4oHMYSICPdQEDsJ1QAnLsqeOtLBxq0SQ#slide=id.gaf084a5ff4_0_0)
+- [Power Method Wiki (Python solution included)](https://en.wikipedia.org/wiki/PageRank)
