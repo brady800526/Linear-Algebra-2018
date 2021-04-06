@@ -38,6 +38,7 @@ for _ in range(1000) or abs(np.sum(cal_vector  - initial_vector)) < 0.001:
   initial_vector = cal_vector
 
 ordering_of_websites = cal_vector.argsort()[::-1]
+
 ##########
 
 print("Your current answer",ordering_of_websites)
